@@ -315,6 +315,7 @@ PUBLIC void Device_vInit(bool_t bWarmStart)
 		MibDioControl_vRegister();
 		Node_eJipInit();												/* 初始化协议栈 					*/
 		vUartInit();
+		vAHI_DioSetOutput(LED_BOTTOM, 0);
 	}
 
 	while (1)
@@ -383,7 +384,7 @@ PUBLIC void v6LP_DataEvent(int iSocket, te6LP_DataEvent eEvent,
             if(bConnected == FALSE)
             {
             	bConnected = TRUE;
-            	vPrintf("K");
+            	DBG_vPrintf(DEBUG_DEVICE_FUNC, "start\n", 0);
             	vAHI_DioSetOutput(0, LED_BOTTOM);
             }
 	    	break;
@@ -394,6 +395,7 @@ PUBLIC void v6LP_DataEvent(int iSocket, te6LP_DataEvent eEvent,
      	    if(tx_error_num1 >= 4)
      	    {
      	       DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nRESET", 0);
+     	       vAHI_DioSetOutput(LED_BOTTOM, 0);
      	       vPrintf("XTQD");
      	    }
 	    	break;
@@ -452,7 +454,7 @@ PUBLIC void v6LP_DataEvent(int iSocket, te6LP_DataEvent eEvent,
 	    				}
 	    	        }
 
-	                if(turn_flag == 0)
+	                /*if(turn_flag == 0)
 	                {
 	                    vAHI_DioSetOutput(0, LED_BOTTOM);
 	                    turn_flag = 1;
@@ -461,7 +463,7 @@ PUBLIC void v6LP_DataEvent(int iSocket, te6LP_DataEvent eEvent,
 	                {
 	                    vAHI_DioSetOutput(LED_BOTTOM, 0);
 	                    turn_flag = 0;
-	                }
+	                }*/
 	            }
 		}
 		case E_IP_DATA_RECEIVED:										/* IP data received ? 			*/
@@ -516,7 +518,7 @@ PUBLIC void vJIP_StackEvent(te6LP_StackEvent eEvent, uint8 *pu8Data, uint8 u8Dat
 		u64LocalAddr = (((uint64)(sLocalNodeAddr.u32H)) << 32) + sLocalNodeAddr.u32L;
 
 		Protocol_vOpenSocket();    //发送方不需要打开 Socket.  接收方需要打开socket
-
+		vPrintf("K");
             /*data_to_send[0] = 'S';
             data_to_send[1] = 0x19;
             data_to_send[2] = 0x43;
@@ -648,6 +650,7 @@ PUBLIC void v6LP_PeripheralEvent(uint32 u32Device, uint32 u32ItemBitmap)
 		if(start_counter >= 6000)
 		{
 			start_counter = 0;
+			vAHI_DioSetOutput(LED_BOTTOM, 0);
 			DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nRESET", 0);
             vPrintf("XTQD");
 		}
@@ -723,6 +726,7 @@ PUBLIC void v6LP_PeripheralEvent(uint32 u32Device, uint32 u32ItemBitmap)
 							tx_error_num1 = tx_error_num1 + 1;
 							if(tx_error_num1 >= 4)
 							{
+								vAHI_DioSetOutput(LED_BOTTOM, 0);
 								DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nRESET", 0);
 								vPrintf("XTQD");
 							}
@@ -736,6 +740,7 @@ PUBLIC void v6LP_PeripheralEvent(uint32 u32Device, uint32 u32ItemBitmap)
 	    		    		tx_error_num1 = tx_error_num1 + 1;
 	    		    		if(tx_error_num1 >= 4)
 	    		    		{
+	    		    			vAHI_DioSetOutput(LED_BOTTOM, 0);
 	    		    			DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nRESET", 0);
 	    		    			vPrintf("XTQD");
 	    		    		}
