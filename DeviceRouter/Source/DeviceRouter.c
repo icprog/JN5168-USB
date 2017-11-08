@@ -267,6 +267,7 @@ PUBLIC void Device_vInit(bool_t bWarmStart)
 	bConnected = FALSE;
 
 	v6LP_InitHardware();
+	vAHI_HighPowerModuleEnable(TRUE,TRUE);
 
 	/* 初始化硬件控制器		 		*/
 	while(bAHI_Clock32MHzStable() == FALSE);							/* 等待时钟稳定 					*/
@@ -507,7 +508,7 @@ PUBLIC void vJIP_StackEvent(te6LP_StackEvent eEvent, uint8 *pu8Data, uint8 u8Dat
 		 */
 		DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nE_STACK_JOINED", eEvent);
 
-		memcpy((uint8 *)&sParentNodeAddr, (uint8 *)&(((tsNwkInfo *)pu8Data)->sParentAddr), 8);
+		memcpy((uint8 *)&sCommNodeAddr, (uint8 *)&(((tsNwkInfo *)pu8Data)->sParentAddr), 8);
 		DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nmy parent's mac:%08x", ((tsNwkInfo *)pu8Data)->sParentAddr.u32H);
 		DBG_vPrintf(DEBUG_DEVICE_FUNC, "%08x", ((tsNwkInfo *)pu8Data)->sParentAddr.u32L);
 

@@ -498,7 +498,7 @@ PUBLIC void vJIP_StackEvent(te6LP_StackEvent eEvent, uint8 *pu8Data, uint8 u8Dat
 
 	    DBG_vPrintf(DEBUG_DEVICE_FUNC, "\nE_STACK_NODE_LEFT", eEvent);
 
-        child_leave[0]='C';
+        /*child_leave[0]='C';
         child_leave[1] = (uint8)((u64childAddr >> 56) );
         child_leave[2] = (uint8)((u64childAddr >> 48) );
         child_leave[3] = (uint8)((u64childAddr >> 40) );
@@ -517,7 +517,7 @@ PUBLIC void vJIP_StackEvent(te6LP_StackEvent eEvent, uint8 *pu8Data, uint8 u8Dat
           {
               vPutChar(child_leave[num]);
           }
-        }
+        }*/
 
 		break;
 	case E_STACK_TABLES_RESET:
@@ -736,7 +736,7 @@ PRIVATE void vUartInit (void)
 	vAHI_UartReset(UART, /* 复位收发FIFO */
 			TRUE,
 			TRUE);
-	vAHI_UartSetBaudRate(UART, E_AHI_UART_RATE_9600); /* 设置波特率*/
+	vAHI_UartSetBaudRate(UART, E_AHI_UART_RATE_38400); /* 设置波特率*/
 	vAHI_UartSetInterrupt(UART, FALSE, FALSE, FALSE, TRUE, E_AHI_UART_FIFO_LEVEL_1); /* 关闭中断 */
 	vInitPrintf((void *)vPutChar);
 }
