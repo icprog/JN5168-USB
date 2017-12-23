@@ -678,7 +678,7 @@ PUBLIC void v6LP_PeripheralEvent(uint32 u32Device, uint32 u32ItemBitmap)
 	    	    	received_num_uart1 = 1;
 	    	        start_juge1 = 0;
 
-	    		    if(tx_num1 == 0) // 发地址信息
+	    		    if(received_data_uart1[35] == 'A' && received_data_uart1[31] == 'A') // 发地址信息
 	    			{
 		    	         board_num[1] = received_data_uart1[1];
 		    	         board_num[2] = received_data_uart1[2];
@@ -732,7 +732,6 @@ PUBLIC void v6LP_PeripheralEvent(uint32 u32Device, uint32 u32ItemBitmap)
 								vPrintf("XTQD");
 							}
 						 }
-	    			     else tx_num1 ++;
 	    			}
 	    		    else
 	    		    {
